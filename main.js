@@ -7,10 +7,13 @@ console.log(form); //check in console
 const d = new Date;
 const currentYear = d.getFullYear();
 
-//estrazio input senza value
+//estrazione degli input senza value
 const birthYear = document.getElementById('birthDate');
 const kmNum = document.getElementById('kmNum');
 
+// prevent default per gli input
+birthYear.addEventListener('input', inp => inp.preventDefault());
+kmNum.addEventListener('input', inp2 => inp2.preventDefault());
 
 form.addEventListener('submit', e => 
     {   // prevent default all'evento submit (NO ricarica pagina)
@@ -19,14 +22,23 @@ form.addEventListener('submit', e =>
         //Estrazione dati inseriti dall'utente - all'evento Submit
         const birthYearInput = birthYear.value; 
         const kmNumInput = kmNum.value;
-        console.log(`km da percorrere: ${kmNumInput}`); // check in console
 
         // calcolo etá
         const age = currentYear - birthYearInput;
-        console.log(`la persona ha ${age} anni`); // check in console
 
         // call funzione per calcolo prezzo
-        console.log(`il prezzo finale é € ${price(kmNumInput, age)}`);
+        const ticketPrice = price(kmNumInput, age);
+        
+        // mostro output negli span della card
+        const kmCard = document.getElementById('kmInput');
+        kmCard.innerHTML = `${kmNumInput}`;
+        
+        const ageCard = document.getElementById('ageUser');
+        ageCard.innerHTML = `${age}`;
+
+        const finalPriceCard = document.getElementById('finalPrice');
+        finalPriceCard.innerHTML = `€${ticketPrice}`; 
+        
     });
 
     //funzione per calcolo prezzo
