@@ -6,7 +6,10 @@ console.log(form); //check in console
 //estrazione anno attuale
 const d = new Date;
 const currentYear = d.getFullYear();
-console.log(currentYear); // check in console
+
+//estrazio input senza value
+const birthYear = document.getElementById('birthDate');
+const kmNum = document.getElementById('kmNum');
 
 
 form.addEventListener('submit', e => 
@@ -14,8 +17,8 @@ form.addEventListener('submit', e =>
         e.preventDefault(); 
 
         //Estrazione dati inseriti dall'utente - all'evento Submit
-        const birthYearInput = document.getElementById('birthDate').value; 
-        const kmNumInput = document.getElementById('kmNum').value;
+        const birthYearInput = birthYear.value; 
+        const kmNumInput = kmNum.value;
         console.log(`km da percorrere: ${kmNumInput}`); // check in console
 
         // calcolo etá
@@ -30,7 +33,9 @@ form.addEventListener('submit', e =>
     function price(km, age) {
         let finalPrice;
         const priceStandard = 0.21
-        if (age < 18) finalPrice = priceStandard * 0.8 * km;
+        if (age < 0 || age > 100) alert("devi inserire l'anno di nascita");
+        if (km < 0 || km > 2000) alert("inserisci un numero di km valido");
+        else if (age < 18) finalPrice = priceStandard * 0.8 * km;
         else if (age > 65) finalPrice = priceStandard * 0.6 * km;
         else finalPrice = priceStandard * km;
         return finalPrice.toFixed(2);
