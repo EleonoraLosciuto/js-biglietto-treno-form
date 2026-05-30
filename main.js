@@ -10,29 +10,38 @@ const currentYear = d.getFullYear();
 const birthYear = document.getElementById('birthDate');
 const kmNum = document.getElementById('kmNum');
 
-//estrazione della card
+//estrazione degli span della card dove mostreró i risultati
 const kmCard = document.getElementById('kmInput');
 const ageCard = document.getElementById('ageUser');
 const finalPriceCard = document.getElementById('finalPrice');
 
 
-// prevent default per gli input e mostro l'input utente nella card
+// EVENT LISTENER PER INPUT 
+// //prevent default per gli input e mostro l'input utente nella card
+
 birthYear.addEventListener('input', inp => {
     inp.preventDefault()
-    // mostro input utente nella card
-    const birthYearInput = birthYear.value; 
+    
     // calcolo etá
+    const birthYearInput = birthYear.value; 
     const age = currentYear - birthYearInput;
+
+    // mostro input utente nella card
     ageCard.innerHTML = `${age}`;
     });
 
 kmNum.addEventListener('input', inp2 => {
     inp2.preventDefault()
-    // mostro input utente nella card
+    
     const kmNumInput = kmNum.value;
+
+    // mostro input utente nella card
     kmCard.innerHTML = `${kmNumInput}`;
     });
 
+
+//EVENT LISTENER PER SUBMIT
+// prevent default per submit e mostro prezzo finale nella card
 form.addEventListener('submit', e => 
     {   // prevent default all'evento submit (NO ricarica pagina)
         e.preventDefault(); 
@@ -42,7 +51,7 @@ form.addEventListener('submit', e =>
         const kmNumInput = kmNum.value;
 
         // calcolo etá
-        const age = currentYear - birthYearInput;
+        const age = currentYear - birthYearInput; 
 
         const ticketPrice = price(kmNumInput, age);
         finalPriceCard.innerHTML = `€${ticketPrice}`; 
@@ -58,7 +67,7 @@ form.addEventListener('submit', e =>
         else if (age > 65) finalPrice = priceStandard * 0.6 * km;
         else finalPrice = priceStandard * km;
         return finalPrice.toFixed(2);
-    }
+    };
 
 
 
