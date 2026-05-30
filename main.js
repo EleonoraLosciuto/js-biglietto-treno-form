@@ -1,7 +1,6 @@
 
 // estrazione form
 const form = document.getElementById('ticket');
-console.log(form); //check in console
 
 //estrazione anno attuale
 const d = new Date;
@@ -11,34 +10,42 @@ const currentYear = d.getFullYear();
 const birthYear = document.getElementById('birthDate');
 const kmNum = document.getElementById('kmNum');
 
-// prevent default per gli input
-birthYear.addEventListener('input', inp => inp.preventDefault());
-kmNum.addEventListener('input', inp2 => inp2.preventDefault());
+//estrazione della card
+const kmCard = document.getElementById('kmInput');
+const ageCard = document.getElementById('ageUser');
+const finalPriceCard = document.getElementById('finalPrice');
+
+
+// prevent default per gli input e mostro l'input utente nella card
+birthYear.addEventListener('input', inp => {
+    inp.preventDefault()
+    // mostro input utente nella card
+    const birthYearInput = birthYear.value; 
+    // calcolo etá
+    const age = currentYear - birthYearInput;
+    ageCard.innerHTML = `${age}`;
+    });
+
+kmNum.addEventListener('input', inp2 => {
+    inp2.preventDefault()
+    // mostro input utente nella card
+    const kmNumInput = kmNum.value;
+    kmCard.innerHTML = `${kmNumInput}`;
+    });
 
 form.addEventListener('submit', e => 
     {   // prevent default all'evento submit (NO ricarica pagina)
         e.preventDefault(); 
-
-        //Estrazione dati inseriti dall'utente - all'evento Submit
+        
+        // estrazione degli input
         const birthYearInput = birthYear.value; 
         const kmNumInput = kmNum.value;
 
         // calcolo etá
         const age = currentYear - birthYearInput;
 
-        // call funzione per calcolo prezzo
         const ticketPrice = price(kmNumInput, age);
-        
-        // mostro output negli span della card
-        const kmCard = document.getElementById('kmInput');
-        kmCard.innerHTML = `${kmNumInput}`;
-        
-        const ageCard = document.getElementById('ageUser');
-        ageCard.innerHTML = `${age}`;
-
-        const finalPriceCard = document.getElementById('finalPrice');
         finalPriceCard.innerHTML = `€${ticketPrice}`; 
-        
     });
 
     //funzione per calcolo prezzo
